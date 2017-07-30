@@ -5,6 +5,7 @@ In this tutorial, i would like to discuss how to implement Sequence-to-Sequence 
 
 ## Basic Theory ##
 Deep Neural Networks is useful for learning tasks, but it has limitation: it can not used for mapping sequence-to-sequence. for instance: given a sequential word, we would like to predict next word based on previous word. another example: we would like to draw painting using neural networks, you don't have to paint all over again from scratch. you have to use previous draw painting from t step and complete drawing until resemble perfect painting.
+
 ** Not Completed yet **
 
 ## Implementation ##
