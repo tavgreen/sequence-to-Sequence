@@ -1,4 +1,4 @@
-# sequence to Sequence LSTM#
+# sequence to Sequence LSTM #
 
 ## Introduction ##
 In this tutorial, i would like to discuss how to implement Sequence-to-Sequence with Neural Network by[Sutskever et al](https://arxiv.org/abs/1409.3215). First of all, basic theory of Recurrent Neural Network (RNN) and its variant like Long Short Term Memory (LSTM) and Gated Recurrent Unit (GRU) will be discussed. The implementation consists of two parts: (1) implementation of LSTM in MNIST Dataset, (2) implementation of GRU in word prediction.
@@ -20,7 +20,7 @@ n_hidden = 128
 n_class = 10
 n_input = 28
 ```
-- create class LSTM which contains graph like fig 1.
+- create class LSTM which contains graph.
 ```python
 def lstm(self, x, weights, biases):
   #unstack input into 28 input size
@@ -44,8 +44,34 @@ biases = {
 	'out': tf.Variable(tf.random_normal([self.n_classes]))
 }
 ```
+- Setting Graph
+```python
+y_pred = lstm(x, weights, biases)
+cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_pred, labels=y))
+optimizer = tf.train.RMSPropOptimizer(learning_rate=lr).minimize(cost)
+correct_pred = tf.equal(tf.argmax(y_pred,1), tf.argmax(y,1)) 
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+init = tf.global_variables_initializer()
+```
+- Run Training
+```python
+with tf.Session() as sess:
+	step = 0;acc_total = 0;loss_total = 0
+	while step * batchsize < self.epochs:
+		batch_x, batch_y = mnist.train.next_batch(batchsize)
+		batch_x = batch_x.reshape((batchsize, n_input, n_input))
+		sess.run(optimizer,feed_dict={x: batch_x, y: batch_y})
+		step += 1
+```
+- Run Testing
+```python
+x_test = mnist.test.images.reshape((-1, self.n_input, self.n_input))
+y_test = mnist.test.labels
+print("Testing Accuracy: ", sess.run(accuracy, feed_dict={x:x_test, y: y_test}))
+```
 
 ### 2. Word Prediction using GRU ###
+** Not Finished Yet **
 
 ## Result ##
 MNIST Prediction using LSTM produces 93% accuracy in testing. Loss and Accuracy in training can be seen in below picture:
