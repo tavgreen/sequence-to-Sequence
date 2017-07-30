@@ -80,7 +80,7 @@ MNIST Prediction using LSTM produces 93% accuracy in testing. Loss and Accuracy 
 ![Fig.1](https://raw.github.com/tavgreen/sequence-to-sequence/master/file/lstm1.png?raw=true "result")
 
 ## References ##
-Sutskever et al. 2014. Sequence to Sequence Learning with Neural Network. https://arxiv.org/abs/1409.3215 
-[@Roatienza](https://github.com/roatienza/Deep-Learning-Experiments/blob/master/Experiments/Tensorflow/RNN/rnn_words.py)
-[@Aymericdarmien](https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/recurrent_network.py)
+- Sutskever et al. 2014. Sequence to Sequence Learning with Neural Network. https://arxiv.org/abs/1409.3215 
+- [@Roatienza](https://github.com/roatienza/Deep-Learning-Experiments/blob/master/Experiments/Tensorflow/RNN/rnn_words.py)
+- [@Aymericdarmien](https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/recurrent_network.py)
 
