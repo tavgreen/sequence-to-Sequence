@@ -24,11 +24,11 @@ n_input = 28
 ```
 - create class LSTM which contains graph.
 ```python
-def lstm(self, x, weights, biases):
+def lstm(x, weights, biases):
   #unstack input into 28 input size
-  x = tf.unstack(x, self.n_input, 1)  
+  x = tf.unstack(x, n_input, 1)  
   #create lstm cell that connect state and output from previous lstm cell(see.fig 1)
-  rnn_cell = tfrnn.MultiRNNCell([tfrnn.BasicLSTMCell(self.n_hidden), tfrnn.BasicLSTMCell(self.n_hidden)]) 
+  rnn_cell = tfrnn.MultiRNNCell([tfrnn.BasicLSTMCell(n_hidden), tfrnn.BasicLSTMCell(n_hidden)]) 
   #create output layer and states from input and lstm cell
   outputs, states = tfrnn.static_rnn(rnn_cell, x, dtype=tf.float32)
   #create output layer( Wt * outputLSTMt + biast)
@@ -37,13 +37,13 @@ def lstm(self, x, weights, biases):
 ```
 - provide placeholder for input and output and definition of weights and biases for output layer
 ```python
-x = tf.placeholder(tf.float32, [None, self.n_input, self.n_input])
-y = tf.placeholder(tf.float32, [None, self.n_classes])
+x = tf.placeholder(tf.float32, [None, n_input, n_input])
+y = tf.placeholder(tf.float32, [None, n_classes])
 weights = {
-  'out': tf.Variable(tf.random_normal([self.n_hidden, self.n_classes]))
+  'out': tf.Variable(tf.random_normal([n_hidden, n_classes]))
 }
 biases = {
-	'out': tf.Variable(tf.random_normal([self.n_classes]))
+	'out': tf.Variable(tf.random_normal([n_classes]))
 }
 ```
 - Setting Graph
@@ -59,7 +59,7 @@ init = tf.global_variables_initializer()
 ```python
 with tf.Session() as sess:
 	step = 0;acc_total = 0;loss_total = 0
-	while step * batchsize < self.epochs:
+	while step * batchsize < epochs:
 		batch_x, batch_y = mnist.train.next_batch(batchsize)
 		batch_x = batch_x.reshape((batchsize, n_input, n_input))
 		sess.run(optimizer,feed_dict={x: batch_x, y: batch_y})
@@ -67,7 +67,7 @@ with tf.Session() as sess:
 ```
 - Run Testing
 ```python
-x_test = mnist.test.images.reshape((-1, self.n_input, self.n_input))
+x_test = mnist.test.images.reshape((-1, n_input, n_input))
 y_test = mnist.test.labels
 print("Testing Accuracy: ", sess.run(accuracy, feed_dict={x:x_test, y: y_test}))
 ```
