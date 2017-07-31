@@ -4,7 +4,18 @@
 In this tutorial, i would like to discuss how to implement Sequence-to-Sequence with Neural Network by[Sutskever et al](https://arxiv.org/abs/1409.3215). First of all, basic theory of Recurrent Neural Network (RNN) and its variant like Long Short Term Memory (LSTM) and Gated Recurrent Unit (GRU) will be discussed. The implementation consists of two parts: (1) implementation of LSTM in MNIST Dataset, (2) implementation of GRU in word prediction.
 
 ## Basic Theory ##
-Deep Neural Networks is useful for learning tasks, but it has limitation: it can not used for mapping sequence-to-sequence. for instance: given a sequential word, we would like to predict next word based on previous word. another example: we would like to draw painting using neural networks, you don't have to paint all over again from scratch. you have to use previous draw painting from t step and complete drawing until resemble perfect painting.
+Deep Neural Networks is useful for learning tasks, but it has limitation: it can not used for mapping sequence-to-sequence. for instance: given a sequential word, we would like to predict next word based on previous word. another example: we would like to draw painting using neural networks, you don't have to paint all over again from scratch. you have to use previous draw painting from t step and complete drawing until resemble perfect painting. 
+### 1. Recurrent Neural Network ###
+Below is example of simple RNN graph (image from tensorflow):
+
+![Fig.1](https://magenta.tensorflow.org/assets/rl_tuner/note_rnn_model.png "Tensorflow")
+
+Green neuron is input layer in numeric format, yellow and red neuron are hidden layer and blue is output layer. Input for Deep learning usually in numeric format in order to easily compute learning parameter. how about word sequence? it should be changed into word vector representation read [Mikolov et al](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf) paper. in RNN, hidden in time t (ht) is not only given from input (xt) but also from previous hidden (ht-1). it looks like we complete painting not from scratch, but from previous paintings. in above picture, let say input data xt(3) is "C", when forward into neural network, the label should be "G", the network will compute loss(how far "C" and "G" pairs) until obtain higher probability than others (let say "C" and "D" pairs or "C" and "A" pairs respectively). Learning can be used Stochastic Gradient Descent (SGD) with optimizer like ADAM or RMSProp. After computing loss, weight of network would be update until the end of epochs.
+
+### 2. Long Short Term Memory (LSTM) ###
+Simple RNN can cause **Vanishing Gradient** because hidden (ht) remember 1 or more previous hidden. One of solution is to use LSTM. LSTM resists of vanishing gradient, because it has forget layer that can forget previous hidden layer or reuse previous hidden layer. Example from [Colah](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) can be useful:
+
+![Fig.1](http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-GRU.png "Colah LSTM")
 
 ** Not Completed yet **
 
@@ -81,6 +92,7 @@ MNIST Prediction using LSTM produces 93% accuracy in testing. Loss and Accuracy 
 
 ## References ##
 - Sutskever et al. 2014. Sequence to Sequence Learning with Neural Network. https://arxiv.org/abs/1409.3215 
+- [@Colah](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 - [@Roatienza](https://github.com/roatienza/Deep-Learning-Experiments/blob/master/Experiments/Tensorflow/RNN/rnn_words.py)
 - [@Aymericdarmien](https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/recurrent_network.py)
 
